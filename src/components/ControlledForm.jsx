@@ -8,6 +8,22 @@ const ControlledForm = () => {
 
     const [gender,setGender] = useState("male")  // default
 
+
+    const [colors,setColors] = useState([
+        {"name":"Blue", "isChecked":false},
+        {"name":"Red", "isChecked":false},
+        {"name":"Yellow", "isChecked":false},
+        {"name":"Green", "isChecked":false}
+    ])
+
+    const handleColorChange = (color) => {
+
+        // Update the property isChecked
+        color.isChecked = !color.isChecked
+        // Update the colors with the updated value
+
+        setColors([...colors])
+    }
     const handleButton = () => {
         console.log(name)
         console.log(gender)
@@ -29,6 +45,31 @@ const ControlledForm = () => {
                         value={val.value}>{val.name}</option>)
                     }
                 </select>
+            </div>
+            <div>
+                <label htmlFor="colors">Select colors</label>
+                <ul>
+                    {
+                        colors.map(val=>
+                            <li key={val.name}>
+                                <input type="checkbox" name="colors"
+                                checked={val.isChecked} 
+                                onChange={()=>handleColorChange(val)}
+                                />
+                                <label>{val.name}</label>
+                        </li>
+                    )
+                    }
+                </ul>
+                <div>
+                    Selected colors: 
+                    <ul>
+                        {/* Retrive the checked color , show it in an li*/}
+                    {colors.filter(val=> val.isChecked === true).map(
+                        val => <li>{val.name}</li>   
+                    )}
+                    </ul>
+                </div>
             </div>
 
             <button onClick={handleButton}>Show value</button>
