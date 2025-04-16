@@ -48,27 +48,27 @@ const ControlledForm = () => {
             </div>
             <div>
                 <label htmlFor="colors">Select colors</label>
-                <ul>
+                <div>
                     {
                         colors.map(val=>
-                            <li key={val.name}>
+                            <p key={val.name}>
                                 <input type="checkbox" name="colors"
                                 checked={val.isChecked} 
                                 onChange={()=>handleColorChange(val)}
                                 />
                                 <label>{val.name}</label>
-                        </li>
+                        </p>
                     )
                     }
-                </ul>
+                </div>
                 <div>
                     Selected colors: 
-                    <ul>
+                    <div>
                         {/* Retrive the checked color , show it in an li*/}
                     {colors.filter(val=> val.isChecked === true).map(
-                        val => <li>{val.name}</li>   
+                        val => <p>{val.name}</p>   
                     )}
-                    </ul>
+                    </div>
                 </div>
             </div>
 
