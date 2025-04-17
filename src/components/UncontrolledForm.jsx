@@ -8,7 +8,7 @@ const UncontrolledForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Input value ", inputRef.current.value)
+        console.log("Input value ", inputRef.current.value) // document.getElement -> Getting the value from the DOM right away
         console.log("Select value", selectRef.current.value)
         console.log("Checkbox value ", checkboxRef.current.value)
     }
