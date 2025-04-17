@@ -7,6 +7,7 @@ const ControlledForm = () => {
     { name: "nondisclose", value: "Prefer not to disclosed" }]
 
     const [gender,setGender] = useState("male")  // default
+    const [genderOption, setGenderOption] = useState("male")
 
 
     const [colors,setColors] = useState([
@@ -27,6 +28,7 @@ const ControlledForm = () => {
     const handleButton = () => {
         console.log(name)
         console.log(gender)
+        console.log(genderOption)
     }
     return (
         <div>
@@ -61,6 +63,7 @@ const ControlledForm = () => {
                     )
                     }
                 </div>
+                
                 <div>
                     Selected colors: 
                     <div>
@@ -70,6 +73,22 @@ const ControlledForm = () => {
                     )}
                     </div>
                 </div>
+                <div>
+                    <p>Select a gender</p>
+                    <div>
+                        {
+                            options.map(val=>
+                                <div key={val.value}>
+                                    <input type="radio"
+                                    value={val.value} name="gender"
+                                    onChange={(e)=> setGenderOption(e.target.value)} />
+                                    {val.name}
+                                </div>
+                                )
+                        }
+                    </div>
+                </div>
+                
             </div>
 
             <button onClick={handleButton}>Show value</button>
