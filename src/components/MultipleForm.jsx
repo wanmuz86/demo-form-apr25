@@ -14,26 +14,60 @@ const MultipleForm = () => {
     })
 
     const handleChange = (e) => {
-        // Object destructuring..
-        // e.target refers to the form/input
-        // name = e.target.name [the attribute name from the form] 
-        // value = e.target.value [the attribute value from the form]
-
-
         const { name, value } = e.target;
+    
+        // Update form data
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    
+        // Validate on change
+        // Spread operator on an object (errors)
+        setErrors((prevErrors) => {
+            const updatedErrors = { ...prevErrors };
+    
+            if (name === "name") {
+                // If less than 5, the errors for name will be set..
+                updatedErrors.name = value.length < 5 ? "Name cannot be less than 5 characters" : null;
+            }
+    
+            if (name === "email") {
+                 // If does not follows the format5, the errors for email will be set..
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                updatedErrors.email = !emailRegex.test(value) ? "Email needs to be in the correct format" : null;
+            }
+    
+              // If is less than 5, the errors for message will be set..
+            if (name === "message") {
+                updatedErrors.message = value.length < 10 ? "Message needs to be at least 10 characters" : null;
+            }
+    
+            return updatedErrors;
+        });
+    };
 
-        // spred operator on an object
-        // update the previous value of the object with the new key, pair , eg : name:"Muzaffar", email:"aa@bb.com"
-        // [name] = name, email or message
-        // value = aa@gmail.com, wan muz
+    // const handleChange = (e) => {
+    //     // Object destructuring..
+    //     // e.target refers to the form/input
+    //     // name = e.target.name [the attribute name from the form] 
+    //     // value = e.target.value [the attribute value from the form]
 
-        // This for format, will always take prevFormData as the old value of the form
-        // way 1: setFormData({name:'Muza', email:'aa@aa.com',message:'sss'})
 
-        // way 2: prevFormData refer to the previous value of formData
-        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+    //     const { name, value } = e.target;
 
-    }
+    //     // spred operator on an object
+    //     // update the previous value of the object with the new key, pair , eg : name:"Muzaffar", email:"aa@bb.com"
+    //     // [name] = name, email or message
+    //     // value = aa@gmail.com, wan muz
+
+    //     // This for format, will always take prevFormData as the old value of the form
+    //     // way 1: setFormData({name:'Muza', email:'aa@aa.com',message:'sss'})
+
+    //     // way 2: prevFormData refer to the previous value of formData
+    //     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+
+    // }
     const handleSubmit = () => {
 
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
