@@ -4,6 +4,7 @@ const UncontrolledForm = () => {
 
     const selectRef = useRef(null) // Reference to the select
     const inputRef = useRef(null) // Reference to name
+    const emailRef = useRef(null) // Reference to name
     const checkboxRef = useRef(null) // Reference to checkbox
 
     const handleSubmit = (e) => {
@@ -18,7 +19,11 @@ const UncontrolledForm = () => {
         <form onSubmit={handleSubmit}>
             <div>
             <label htmlFor="name">Name:</label>
-            <input type="text" ref={inputRef} />
+            <input type="text" ref={inputRef}  required/>
+            </div>
+            <div>
+            <label htmlFor="name">Email:</label>
+            <input type="email" ref={emailRef}  required/>
             </div>
             <div>
                 <label htmlFor="select">Favourite Color</label>
