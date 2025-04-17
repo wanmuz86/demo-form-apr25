@@ -8,10 +8,15 @@ const UncontrolledForm = () => {
     const checkboxRef = useRef(null) // Reference to checkbox
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+       e.preventDefault() 
+       // overriding the form default behaviour on a browser/ "refresh of the page"/ because by default it is trying to send data to the server
+       // based on method and action passed , if avaiable
+       // Check when we did POST , create Product 
         console.log("Input value ", inputRef.current.value) // document.getElement -> Getting the value from the DOM right away
         console.log("Select value", selectRef.current.value)
         console.log("Checkbox value ", checkboxRef.current.value)
+
+        /// send data for, eg using axios
     }
   return (
     <div>
