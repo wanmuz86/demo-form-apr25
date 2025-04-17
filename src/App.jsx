@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import './App.css'
 import ControlledForm from './components/ControlledForm'
+import MultipleForm from './components/MultipleForm'
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
      <ControlledForm/>
+     <hr/>
+     <MultipleForm/>
     </>
   )
 }
