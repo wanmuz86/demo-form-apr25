@@ -1,12 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 
 const ReactHookForm = () => {
     // register: to register the input
     // handleSubmit: handleSubmission
+    // watch : Observe the form, and do something when the data change
     // errors: keep track of the errors
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    // Setup the watcher
+    
+    const watchName = watch("gender") // Watch for the value specify on gender
+    const watchTitle = watch("title")
+
+    useEffect(()=>{
+        // Whenever there is a change in gender, and title,
+        // this console will be executed and we can customize it
+        console.log("Gender or title has been changed")
+        console.log(watchTitle)
+        console.log(watchName)
+
+        
+    },[watchTitle, watchName])
+
+
 
     const onSubmit = (data) => {
         console.log(data)
