@@ -1,10 +1,16 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
 const MultipleForm = () => {
     const [formData, setFormData] = useState({
-        name:'',
-        email:'',
-        message:''
+        name: '',
+        email: '',
+        message: ''
+    })
+
+    const [errors, setErrors] = useState({
+        name: '',
+        email: '',
+        message: ''
     })
 
     const handleChange = (e) => {
@@ -13,41 +19,79 @@ const MultipleForm = () => {
         // name = e.target.name [the attribute name from the form] 
         // value = e.target.value [the attribute value from the form]
 
-        const {name, value} = e.target;
+
+        const { name, value } = e.target;
 
         // spred operator on an object
         // update the previous value of the object with the new key, pair , eg : name:"Muzaffar", email:"aa@bb.com"
         // [name] = name, email or message
         // value = aa@gmail.com, wan muz
-        
-        setFormData((prevFormData) => ({...prevFormData, [name]:value}))
+
+        // This for format, will always take prevFormData as the old value of the form
+        // way 1: setFormData({name:'Muza', email:'aa@aa.com',message:'sss'})
+
+        // way 2: prevFormData refer to the previous value of formData
+        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
 
     }
     const handleSubmit = () => {
-        console.log(`name: ${formData.name}, email: ${formData.email},
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        const formError = { name: null, email: null, message: null }
+
+        let hasError = false
+
+        if (!formData.name || formData.name.length < 5) {
+            formError.name = 'Name cannot be less than 5 characters'
+            hasError = true
+        }
+
+        if (!formData.email || !emailRegex.test(formData.email)) {
+            formError.email = "Email needs to be in the correct format"
+            hasError = true
+        }
+
+        if (!formData.message || formData.message.length < 10) {
+            formError.message = "Message needs to be at least 10 characters"
+            hasError = true
+        }
+
+        setErrors(formError)
+        if (!hasError) {
+            console.log(`name: ${formData.name}, email: ${formData.email},
         message: ${formData.message}`)
-
+        }
     }
-  return (
-    <div>
-        <h2>Multiple Component Form</h2>
+    return (
         <div>
-            <label htmlFor="name">Name</label>
-            <input type="text" id='name' name="name" value={formData.name} onChange={handleChange}/>
-        </div>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange}/>
-        </div>
-        <div>
-            <label htmlFor="message">Message:</label>
-            <textarea name="message" value={formData.message} onChange={handleChange}>
+            <h2>Multiple Component Form</h2>
+            <div>
+                <label htmlFor="name">Name</label>
+                <input type="text" id='name' name="name" value={formData.name} onChange={handleChange} />
+                {
+                    errors.name && <p style={{ color: 'red' }}>{errors.name}</p>
+                }
+            </div>
+            <div>
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+                {
+                    errors.email && <p style={{ color: 'red' }}>{errors.email}</p>
+                }
+            </div>
+            <div>
+                <label htmlFor="message">Message:</label>
+                <textarea name="message" value={formData.message} onChange={handleChange}>
 
-            </textarea>
+                </textarea>
+                {
+                    errors.message && <p style={{ color: 'red' }}>{errors.message}</p>
+                }
+            </div>
+            <button onClick={handleSubmit}>Submit</button>
         </div>
-        <button onClick={handleSubmit}>Submit</button>
-    </div>
-  )
+    )
 }
 
 export default MultipleForm
