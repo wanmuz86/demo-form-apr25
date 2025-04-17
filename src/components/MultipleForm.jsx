@@ -8,9 +8,24 @@ const MultipleForm = () => {
     })
 
     const handleChange = (e) => {
+        // Object destructuring..
+        // e.target refers to the form/input
+        // name = e.target.name [the attribute name from the form] 
+        // value = e.target.value [the attribute value from the form]
+
+        const {name, value} = e.target;
+
+        // spred operator on an object
+        // update the previous value of the object with the new key, pair , eg : name:"Muzaffar", email:"aa@bb.com"
+        // [name] = name, email or message
+        // value = aa@gmail.com, wan muz
+        
+        setFormData((prevFormData) => ({...prevFormData, [name]:value}))
 
     }
     const handleSubmit = () => {
+        console.log(`name: ${formData.name}, email: ${formData.email},
+        message: ${formData.message}`)
 
     }
   return (
